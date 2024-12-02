@@ -1,4 +1,4 @@
-alert("buzi alex");
+
 
 
 // function Player(nickname, playedmatch){
