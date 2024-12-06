@@ -6,6 +6,7 @@ class Factory{
 
     Addmano(mano) { //nem kell manok lista mert osztalyon belul vagyunk
         this.manok_lista.push(mano); //this azért kell mert rámutat 
+        createRow(mano);// a companion a manp
 
     }
 
@@ -27,7 +28,6 @@ class Factory{
 class Companion{
         constructor(id, kernev, veznev,reszleg){
         this.product_list = [];
-
         this.id = id;
         this.kernev = kernev;
         this.veznev = veznev;

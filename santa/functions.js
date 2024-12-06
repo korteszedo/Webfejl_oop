@@ -7,9 +7,17 @@ function createRow(companion){
     const table = document.getElementById('companions');
     const tbody = table.querySelector('tbody');
     const tableRow = document.createElement('tr');
+    tableRow.id = companion.id;
     tbody.appendChild(tableRow);
 
    // TODO 7
+   const teljes_nev = createCell(tableRow);
+   teljes_nev.innerHTML = companion.Osszevon();
+
+   const area = createCell(tableRow);
+   area.innerHTML = companion.reszleg;
+
+    
 
     const action = createCell(tableRow)
     const button = document.createElement('button');

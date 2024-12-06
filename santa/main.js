@@ -45,11 +45,29 @@ document.getElementById('product').addEventListener('submit',function(e){
  */
 function initTable(){
 
+    for (let i = 0; i < companionList.length; i++){
+
+        const adat = companionList[i]; //lista aktualis eleme
+        const companion = new Companion(i, adat.firstName, adat.lastName, adat.area);  //aktualis elem reszeit adja meg a classnek
+
+
+        for (const termek of adat.products){  // az adat.products bol az a datokat a termékme rakjuk a termékbe ideiglenes értéknek, amit a product_list = []; listahoz fuzunk
+            companion.procuctAdd(termek);
+        }
+
+
+        factory.Addmano(companion);
+    }
+
+    
+
     // TODO 6
 }
 
 
 initTable()
+
+console.log(factory)
 
 /**
  * 
