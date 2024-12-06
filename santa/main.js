@@ -26,7 +26,7 @@ const companionList = [
         products: ['zokni']
     },
 ]
-const factory = new Factory();
+const factory = new Factory(); //példányosítás
 
 document.getElementById('companion').addEventListener('submit',function(e){
     e.preventDefault();
