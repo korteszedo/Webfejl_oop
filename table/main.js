@@ -20,7 +20,8 @@ const array = [
     },
 ]
 
-//tugas ka seuleusoe;
+const tbody = document.getElementById("tbodyId");
+
 
 class Person{
     constructor(obj){
@@ -32,9 +33,15 @@ class Person{
 
     render(parent_element){ //html element kell bele fiam
 
+        
+
 
         const tr = document.createElement('tr');
         parent_element.appendChild(tr);
+
+        const lastname = document.createElement('td');
+        lastname.innerHTML = this.lastname;
+        tr.appendChild(lastname);
 
 
         const firstname1 = document.createElement('td');
@@ -51,9 +58,26 @@ class Person{
             tr.appendChild(firstname2);
         }
 
-        const lastname = document.createElement('td');
-        lastname.innerHTML = this.lastname;
-        tr.appendChild(lastname);
+
 
     }
 }
+
+
+
+
+function init(){
+    const tbody = document.getElementById("tbodyId");
+    
+    for (const adat of array){
+        const valtozo = new Person(adat);
+
+        valtozo.render(tbody);
+    }
+
+};
+
+init();
+
+
+
