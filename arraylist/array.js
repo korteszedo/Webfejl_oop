@@ -32,11 +32,19 @@ class ArrayList {
 
 
     Clear(){
-        this.#hossz = 0;
-        this.#obj = {};
+        this.#hossz = 0; //lenullazuk a hosszt
+        this.#obj = {}; // "lenullazzuk" az obj t
     }
 
 }
 const csirke = {};
 csirke.a = 'def'
 console.log(csirke);
+
+
+const alma = {}
+Object.defineProperty(alma, 'nev', {
+    value:'Ferenc', writable : true
+});
+alma.nev = "asd"
+console.log(alma)
