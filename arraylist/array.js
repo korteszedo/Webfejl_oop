@@ -26,9 +26,28 @@ class ArrayList {
         const i = this.#hossz; //elkértük az aktualis hosszt
         this.#obj[i] = item; //belso objektumnak az aktualis index tulajdonsaganak beallitjuk az item parameteret 
         this.#hossz++; //növeljuk a hossz tulajdonsaganak erteket
+        Object.defineProperty(this, i, {
+            get:function(){
+                this.#obj[i]
+
+                return this.#obj[i];
+
+            }, set:function(value){
+
+                value  =i;
+
+                this.#obj[i] = value;
+            }
+        })
+        this.#hossz++;
+            
+        
 
 
     }       
+
+
+
 
 
     Clear(){
