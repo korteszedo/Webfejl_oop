@@ -11,16 +11,16 @@ const funC = (parameter) => console.log(parameter.nev); //ez egy "másfajta" fü
 
 funC(a); //meghívjuk a függvényt
 
-const obj = {
-    funcNev: (parameter) =>{console.log(parameter.nev)},
-    funcKor: (parameter) =>{console.log(parameter.kor)}
+const obj = { //léltrehozok egy objektumot
+    funcNev: (parameter) =>{console.log(parameter.nev)}, //obejktum elso ertekenek a nev kilogolás függvényt adom
+    funcKor: (parameter) =>{console.log(parameter.kor)} //objektum 2. érétkének a a kor kilogolását adomn meg
 }
 
-let b = {
-    nev: "asdadasd",
+let b = { //létrehozok egy objektumot. amiben a értékeket adok meg a nev és a kornak
+    nev: "asdadasd11",
     kor: 19,
 }
 
 
-obj.funcNev(b);
-obj.funcKor(b);
+obj.funcNev(b); //meghivom az objektum elso funkciojat
+obj.funcKor(b); //meghivom au objektum masik funkciojat
