@@ -1,69 +1,47 @@
 class ArrayList {
-    
-
     /**
      * @type {Number} szamnak definialja a hosszt
      */
-    #hossz 
-    //hossz csak egy privat objektum ami csak a classon belul van
-    #obj
-    
-    get Count(){ //get a hossz erteket elkeri ugy hogy privat marad
+    #hossz; // hossz csak egy privat objektum ami csak a classon belul van
+    #obj;
 
-        this.#hossz;
-
-        return this.#hossz; // vissza adja a hossz erteket
+    get Count() {
+        return this.#hossz; // visszaadja a hossz erteket
     }
 
-  
-    constructor(){
-        this.#hossz = 0; //a hosszt 0ra állítjuk
-        this.#obj = {}; // az obj-t adat tarozonak allitjuk be
-        
+    constructor() {
+        this.#hossz = 0; // a hosszt 0-ra állítjuk
+        this.#obj = {}; // az obj-t adattárolónak állítjuk be
     }
-            
-    Add(item){
-        const i = this.#hossz; //elkértük az aktualis hosszt
-        this.#obj[i] = item; //belso objektumnak az aktualis index tulajdonsaganak beallitjuk az item parameteret 
-        this.#hossz++; //növeljuk a hossz tulajdonsaganak erteket
+
+    Add(item) {
+        const i = this.#hossz; // elkértük az aktuális hosszt
+        this.#obj[i] = item; // belso objektumnak az aktuális index tulajdonságának beállítjuk az item paraméterét
+        this.#hossz++; // növeljük a hossz tulajdonság értékét
         Object.defineProperty(this, i, {
-            get:function(){
-                this.#obj[i]
-
-                return this.#obj[i];
-
-            }, set:function(value){
-
-                value  =i;
-
-                this.#obj[i] = value;
+            get: function () {
+                return this.#obj[i]; // visszaadja az aktuális elemet
+            },
+            set: function (value) {
+                this.#obj[i] = value; // beállítja az aktuális elemet
             }
-        })
-        this.#hossz++;
-            
-        
-
-
-    }       
-
-
-
-
-
-    Clear(){
-        this.#hossz = 0; //lenullazuk a hosszt
-        this.#obj = {}; // "lenullazzuk" az obj t
+        });
     }
 
+    Clear() {
+        this.#hossz = 0; // lenullázzuk a hosszt
+        this.#obj = {}; // "lenullázzuk" az obj-t
+    }
 }
+
+// Példa használat
 const csirke = {};
-csirke.a = 'def'
+csirke.a = 'def';
 console.log(csirke);
 
-
-const alma = {}
+const alma = {};
 Object.defineProperty(alma, 'nev', {
-    value:'Ferenc', writable : true
+    value: 'Ferenc', writable: true
 });
-alma.nev = "asd"
-console.log(alma)
+alma.nev = "asd";
+console.log(alma);
