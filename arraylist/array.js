@@ -1,101 +1,112 @@
 class ArrayList {
-    #state;
-    #count;
-    #html;
+    // Privát változók, csak ezen osztályon belül érhetők el
+    #state  // Az adatok tárolására szolgáló objektum
+    #count  // Az elemek száma
+    /**
+     * @type {ArrayHTMLTable}
+     */
+    #htmlArray;  // Ha van megadott HTML táblázat, akkor abban is megjeleníti az adatokat
 
+    // A lista aktuális elemszámát adja vissza
     get Count() {
         return this.#count;
     }
-
+    
+    // Konstruktor: Inicializálja az objektumot
     constructor(array = undefined) {
-        this.#count = 0;
-        this.#state = {}; 
+        this.#count  = 0;
+        this.#state = {}; // Kezdetben üres objektum
+        this.#htmlArray = array; // Opcionálisan egy HTML táblázathoz csatlakozhat
     }
 
+    // Új elem hozzáadása a listához
     Add(param) {
-        const index = this.Count;
-        this.#state[index] = param;
+        const index = this.#count; // Az aktuális index meghatározása
+        this.#state[index] = param; // Az adat mentése a belső objektumba
+
+        // Dinamikus tulajdonságot adunk az osztály példányához
         Object.defineProperty(this, index, {
-            get: () => { return this.#state[index]; },
-            enumerable: true,
-            configurable: true,
-            set: (value) => { this.#state[index] = value; }
+            get: () => this.#state[index], // Lekérés
+            enumerable: true, // A tulajdonság megjelenjen a ciklusokban
+            configurable: true, // Lehetővé teszi a törlést
+            set: (value) => { this.#state[index] = value; } // Beállítás
         });
 
-        this.#count++;
+        // Ha van HTML táblázat, frissítsük azt is
+        if (this.#htmlArray) {
+            this.#htmlArray.addPersonRow(param);
+        }
+
+        this.#count++; // Növeljük az elemek számát
     }
 
+    // Az összes elem törlése a listából
     Clear() {
-        console.log('Clear kezdete');
+        console.log('Clear kezdődik');
         for (const key in this) {
-            delete this[key]
+            delete this[key]; // Minden tulajdonság törlése
         }
-        this.#count = 0;
-        this.#state = {}; 
+        this.#count = 0; // Visszaállítjuk az elemszámot
+        this.#state = {}; // Az állapotot is töröljük
         console.log('Clear vége');
     }
 }
 
+// Egyedi HTML elem, ami egy táblázatként működik
 class ArrayHTMLTable extends HTMLElement {
-    #tbody; // Privát mező a <tbody> elem tárolására
+    #tbody; // A táblázat törzse
 
     connectedCallback() {
-        const table = document.createElement('table');
-        this.appendChild(table);
+        const table = document.createElement('table'); // Táblázat létrehozása
+        this.append(table);
 
-        const thead = document.createElement('thead');
-        table.appendChild(thead);
+        this.#tbody = document.createElement('tbody'); // Táblázat törzse
+        table.append(this.#tbody);
 
-        const tbody = document.createElement('tbody');
-        table.appendChild(tbody);
-
-        // A privát #tbody mezőt inicializáljuk
-        this.#tbody = tbody;
+        const thead = document.createElement('thead'); // Fejléc létrehozása (hibás név javítva)
+        table.append(thead);
     }
 
-    /**
-     * 
-     * @param {{nev: String, kor: Number}} item
-    */
+    // Egy új sor hozzáadása a táblázathoz
     addPersonRow(item) {
-        const tr = document.createElement('tr');
-        this.#tbody.appendChild(tr); // A sor hozzáadása a táblázat törzséhez
+        const tr = document.createElement('tr'); // Új sor létrehozása
+        this.#tbody.appendChild(tr);
 
         const td1 = document.createElement('td');
-        td1.textContent = item.kor; // Életkor beállítása
+        td1.textContent = item.nev; // Név oszlop
         tr.appendChild(td1);
 
-        const td2 = document.createElement('td'); 
-        td2.textContent = item.nev; // Név beállítása
+        const td2 = document.createElement('td');
+        td2.textContent = item.kor; // Kor oszlop
         tr.appendChild(td2);
     }
 }
 
-customElements.define('array-t', ArrayHTMLTable);
-
+// Példányosítunk egy ArrayList objektumot
 const a = new ArrayList();
-a.Add({ nev: "Laci", eletkor: 18 });
-a.Add({ nev: "Sanyi", eletkor: 21 });
-a.Clear();
+a.Add({ nev: "Laci", kor: 18 });
+a.Add({ nev: "Sanyi", kor: 21 });
+a.Clear(); // Lista kiürítése
 console.log(a);
 
-const htmltable = new ArrayHTMLTable();
-document.body.appendChild(htmltable);
-htmltable.addPersonRow({ nev: "Laci", kor: 18 });
+// Egyedi HTML elem regisztrálása
+customElements.define('array-t', ArrayHTMLTable);
 
-const b = new ArrayList();
+// Létrehozunk egy táblázat objektumot és hozzáadjuk a DOM-hoz
+const Htmltable = new ArrayHTMLTable();
+document.body.appendChild(Htmltable);
 
-function add(a, b, c, d) { 
-}
+// Új lista létrehozása, ami egy HTML táblázathoz is kapcsolódik
+const b = new ArrayList(Htmltable);
+b.Add({ nev: "Laci", kor: 18 });
+b.Add({ nev: "Sanyi", kor: 21 });
 
-// Példa használat
-const csirke = {};
-csirke.a = 'def';
-console.log(csirke);
+// Gomb létrehozása és hozzáadása az oldalhoz
+const button = document.createElement('button');
+button.innerHTML = "Hozzáad";
+document.body.appendChild(button);
 
-const alma = {};
-Object.defineProperty(alma, 'nev', {
-    value: 'Ferenc', writable: true
+// Gomb eseménykezelője
+button.addEventListener('click', () => {
+    b.Add({ nev: "Yapaki", kor: 22 }); // Hozzáad egy új személyt a listához
 });
-alma.nev = "asd";
-console.log(alma);
