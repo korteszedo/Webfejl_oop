@@ -1,6 +1,6 @@
-const manage = new Manager('')
+const manager = new Manager('')
 const detailsAerea = new DetailsAerea('details');
-const studentsAarea = new StudentsAarea('student-list', manage);
+const studentsAarea = new StudentsAarea('student-list', manager);
 
 
 const array = [
@@ -59,5 +59,5 @@ const array = [
 
 for(const elem of array){
     const student = new Student(elem.name, elem.average, elem.comment, elem.bad);
-    manage.add(student);
+    manager.add(student);
 }

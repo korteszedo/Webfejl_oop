@@ -47,11 +47,17 @@ class Area{
 class DetailsAerea extends Area{
 
     /**
-     * 
+     * @param {Manager} manager
      * @param {string} className 
      */
     constructor(className){
         super(className);
+        manager.setSelectAddCallBack((student=> {
+            this.div.innerHTML = "";
+            const detailcontainer = document.createElement('div');
+            detailcontainer.innerHTML = student.comments;
+            this.div.appendChild(detailcontainer);
+        }))
     } 
 
 }
@@ -77,6 +83,18 @@ class StudentsAarea extends Area{
             averageSpan.textContent = student.average;
             studentCard.appendChild(averageSpan);
             this.div.appendChild(studentCard)
+            studentCard.addEventListener('click', (e)=> {
+                const cardList = document.querySelectorAll('.student-card');
+
+                for( const card of cardList){
+                    card.className = 'student-card';
+                }
+
+                e.currentTarget.classList.add('selected');
+                manager.select(student);
+
+                
+            })
         })
     } 
 }
